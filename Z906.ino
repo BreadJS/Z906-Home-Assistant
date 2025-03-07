@@ -1,13 +1,7 @@
-#include <Z906.h>
+#include "config.h"
 #include <WiFi.h>
 #include <PubSubClient.h>
-
-/* Wifi Settings */
-const char *ssid = "WIFI_SSID";
-const char *password = "WIFI_PASSWORD";
-const char *mqtt_server = "MQTT_HOSTNAME";
-const char* mqtt_username = "MQTT_USERNAME";
-const char* mqtt_password = "MQTT_PASSWORD";
+#include <ArduinoJson.h>
 
 /* Initialize Z906 */
 Z906 LOGI(Serial2);
@@ -208,7 +202,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       LOGI.cmd(MUTE_OFF);
     } else if(payload[0] == '0') {
       client.publish("homeassistant/switch/z906-power/state", "off");
-      digitalWrite(32, LOW);
+      pinMode(TurnOnSpeakerPin, INPUT);
       speakerPowerStatus = false;
     }
   } else if(strcmp(topic, "homeassistant/button/z906-up") == 0) {
