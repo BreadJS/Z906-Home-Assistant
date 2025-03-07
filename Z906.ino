@@ -23,13 +23,14 @@ struct Entity {
 };
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(115200);
 
   /* Loop until connect to Wifi */
   WiFi.begin(ssid, password);
+  Serial.print("Connecting to wifi...");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.println("Connecting to WiFi..");
+    Serial.print(".");
   }
 
   Serial.println("WiFi connected.");
