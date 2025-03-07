@@ -41,7 +41,7 @@ void setup() {
   client.setBufferSize(1024);
 
   /* Initialize Pins */
-  pinMode(32, OUTPUT);
+  pinMode(TurnOnSpeakerPin, INPUT);
 }
 
 
@@ -188,7 +188,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if(strcmp(topic, "homeassistant/switch/z906-power") == 0) {
     if (payload[0] == '1') {
       client.publish("homeassistant/switch/z906-power/state", "on");
-      digitalWrite(32, HIGH);
+      pinMode(TurnOnSpeakerPin, OUTPUT);
+      digitalWrite(TurnOnSpeakerPin, LOW);
       speakerPowerStatus = true;
       
       delay(2500);
