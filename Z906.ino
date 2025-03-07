@@ -196,8 +196,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
       delay(2500);
 
       LOGI.cmd(PWM_ON);
+      
+      // Select input
       LOGI.cmd(SELECT_INPUT_3);
-      LOGI.cmd(SELECT_EFFECT_3D);
+      client.publish("homeassistant/select/z906-input/state", "Input 3");
+
       LOGI.cmd(MUTE_OFF);
     } else if(payload[0] == '0') {
       client.publish("homeassistant/switch/z906-power/state", "off");
