@@ -1,40 +1,58 @@
 # Z906-Home-Assistant
-This is a Home Assistant integration using Mosquitto Broker to control the Logitech Z906.
+This is my version of connecting your Z906 to the MQTT broker in Home Assistant.
 
-<br/>
 
 ## Thank you [zarpli](https://github.com/zarpli)
 
-I want to thank [zarpli](https://github.com/zarpli) for creating the [Logitech-Z906](https://github.com/zarpli/Logitech-Z906) repo that made this integration possible. Please follow his tutorial to connect the ESP32 to the speaker.
+I want to thank [zarpli](https://github.com/zarpli) for creating the [Logitech-Z906](https://github.com/zarpli/Logitech-Z906) repo that made this integ
 
-<br/>
 
 ## Not the final product
 Currently this is a very rough sketch and the only things currently working are the volume control on all speakers (main, rear, subwoofer, center) and powering on and off the system. I will also be improving the code a lot more. (I'm not a C++ developer, I do web stuff haha)
 
-<br/>
 
 ## Small issue
 
 For some reason my speaker set is a newer version or some sort as I could not read the version number or the status of the device trough the repo of [zarpli](https://github.com/zarpli). I did receive data but was unable to uncypher it. I'm not certain if I'm able to uncypher this. If not, all the help would be appreciated
 
-<br/>
+
+## Functions:
+- [x] Show Z906 version
+- [x] Show Temperature
+- [x] Show if Dolby is active
+- [x] Set input
+- [x] Set effect
+- [x] Volume up/down for main channel
+- [x] Volume up/down for rear channel
+- [x] Volume up/down for sub channel
+- [x] Volume up/down for center channel
+- [x] Save current settings
+- [x] Turn on/off system
+
 
 ## Todo:
 - [ ] Automatic shutdown
-- [ ] Reading and showing version
-- [ ] Reading and showing current volume (main, rear, center sub)
-- [ ] Reading and showing current input
-- [ ] Reading and showing current effect
-- [ ] Reading and showing power up time
+- [ ] Volume slider for main, rear, center and sub channel
+- [ ] Show power up times
 - [ ] Muting/Unmuting
+- [ ] Show project firmware version
+- [ ] Connect your Console to the ESP32 for hard control
 
-<br/>
+*I'm planning to fix lots of issues and make this **THE** Z906 integration.**
+
 
 ## Installation (ESP32)
-1. Read the wiring information on [Logitech-Z906](https://github.com/zarpli/Logitech-Z906) and connect it to your `ESP32`. The only wires u need is `GND`, `TX` and `RX`. Connect `TX` to `pin 17` and `RX` to `pin 16`. I also included a `NPN BC548` to turn off and on the device with `pin 15` on the `DE-15` connector. This is connected to `pin 32` on my `ESP32`. I do recommend doing this, else the speaker is turned on 24/7 and could damage it. (Wiring diagram coming soon)
-2. Download the [pubsubclient](https://github.com/knolleary/pubsubclient) repo as a zip file.
-3. Open `Arduino IDE` and go to `Sketch` -> `Include Library` -> `Add .ZIP Library...` and import both the `Z906.zip` (included in this repo), and the cloned `pubsubclient-master.zip`.
-4. Upload your code and it should work!
+1. **[Connections]:** Connect `TX` to `GPIO 17` and `RX` to `GPIO 16`. I connected `GPIO 32` to `PIN 15` on the `DE-15` connector. I do recommend doing this instead of connecting `PING 15` to `GND` (on the amplifier side), else the speaker is turned on 24/7 and could damage it.
+2. **[Packages]:** Install the following required libraries in ArduinoIDE:
+    - PubSubClient
+    - ArduinoJson
+3. **[Success]:** Upload your code and it should work!
 
-*If you have any questions, feel free to add me on Discord `BreadJS#0813` or open an issue!*
+
+## Note
+*It could be possible that the whole system is not working, This is a known issue with older/newer version of the Z906. Try changing `0x18` to `0x17` on line `8` in `Z906.h`*
+
+
+## Thanks
+
+*If you have any questions, feel free to add me on Discord `BreadJS` or open an issue!*
